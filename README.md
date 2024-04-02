@@ -19,4 +19,4 @@ This script is designed to concatenate separate video clips recorded during game
     ```
     python main.py
     ```
-This will concatenate all the clips found in the `rec` folder and its subfolders, and save the concatenated video in the same directory as this script.
+This will concatenate all the clips found in the `rec` folder and its subfolders using moviepy, and save the concatenated video in the directory you choose.

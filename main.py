@@ -4,15 +4,15 @@ from datetime import datetime
 import tempfile
 
 
-def combine_webm_files():
-    
+def combine_webm_files(output_directory):
+
     # Get the path to the temporary folder
     temp_folder = tempfile.gettempdir()
     main_directory = os.path.join(temp_folder, 'rec')
     # Iterate over all folders in the specified directory
     for index,directory in enumerate(os.listdir(main_directory)):
         directory_path = os.path.join(main_directory, directory)
-        print(directory,directory_path)
+        # print(directory,directory_path)
         if os.path.isdir(directory_path):
             print(f"Processing directory {index + 1}: {directory_path}")
             # Get a list of all directories in the specified directory
@@ -24,7 +24,7 @@ def combine_webm_files():
             # Sort directories by last modification time
             directories.sort(key=lambda x: os.path.getmtime(x))
             for folder_path in directories:
-                
+
                 # Check if output.webm exists in the folder
                 webm_file = os.path.join(folder_path, 'output.webm')
                 if os.path.exists(webm_file):
@@ -42,20 +42,34 @@ def combine_webm_files():
             # Concatenate all clips into a single clip
             final_clip = concatenate_videoclips(clips)
             # Write the final clip to a file
-            #make name of file : output_datetime.webm
             now = datetime.now()
             output_file = "output_" + now.strftime("%Y-%m-%d_%H-%M-%S") + ".webm"
+            output_file = os.path.join(output_directory, output_file)
             final_clip.write_videofile(output_file, codec='libvpx')
         print("Processing complete for directory:", directory_path)
 
 
 def main():
     # Ask for the directory containing the folders
-    # directory = input("Please enter the directory containing the folders (or 'q' to quit): ")
-    
+    output_directory = input("Please enter the directory where you want to save the output (or 'q' to quit): ")
+
+    if output_directory.lower() == 'q':
+        return
+
+    # Check if the directory exists
+    if not os.path.exists(output_directory):
+        print(f"The directory {output_directory} does not exist.")
+        input("\nPress any key to exit...")
+        return
+
+    if not os.path.isdir(output_directory):
+        print(f"The path {output_directory} is not a directory.")
+        #print press any key to exit
+        input("\nPress any key to exit...")
+        return
 
     # Process the directory
-    combine_webm_files()
+    combine_webm_files(output_directory)
 
 
     
