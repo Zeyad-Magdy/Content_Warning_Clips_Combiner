@@ -47,14 +47,18 @@ def combine_webm_files(output_directory):
             output_file = os.path.join(output_directory, output_file)
             final_clip.write_videofile(output_file, codec='libvpx')
         print("Processing complete for directory:", directory_path)
-
+    input("\nPress any key to exit...")
 
 def main():
     # Ask for the directory containing the folders
-    output_directory = input("Please enter the directory where you want to save the output (or 'q' to quit): ")
+    output_directory = input("Please enter the directory where you want to save the output (leave empty for default: current directory) (or 'q' to quit): ")
 
     if output_directory.lower() == 'q':
         return
+
+    #if empty use current directory
+    if not output_directory:
+        output_directory = os.getcwd()
 
     # Check if the directory exists
     if not os.path.exists(output_directory):
