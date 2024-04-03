@@ -9,6 +9,10 @@ def combine_webm_files(output_directory):
     # Get the path to the temporary folder
     temp_folder = tempfile.gettempdir()
     main_directory = os.path.join(temp_folder, 'rec')
+    if not os.path.isdir(directory_path):
+        print(f"The temp recordings folder was not found")
+        input('press any key to exit...')
+        return
     # Iterate over all folders in the specified directory
     for index,directory in enumerate(os.listdir(main_directory)):
         directory_path = os.path.join(main_directory, directory)
