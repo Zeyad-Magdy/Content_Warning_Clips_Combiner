@@ -9,8 +9,8 @@ def combine_webm_files(output_directory):
     # Get the path to the temporary folder
     temp_folder = tempfile.gettempdir()
     main_directory = os.path.join(temp_folder, 'rec')
-    if not os.path.isdir(directory_path):
-        print(f"The temp recordings folder was not found")
+    if not os.path.isdir(main_directory):
+        print(f"The temp recordings folder was not found, it gets deleted after a while of closing the game or when openning the game again.")
         input('press any key to exit...')
         return
     # Iterate over all folders in the specified directory
